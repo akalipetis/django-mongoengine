@@ -15,6 +15,10 @@ class RelationWrapper(object):
     """
     def __init__(self, document):
         self.to = document
+        self.model = document
+
+    def get_related_field(self):
+        return AttrDict(name='')
 
 
 def label_for_field(name, model, model_admin=None, return_attr=False):
@@ -83,3 +87,9 @@ def help_text_for_field(name, model):
     except FieldDoesNotExist:
         help_text = ""
     return smart_text(help_text, strings_only=True)
+
+
+class AttrDict(dict):
+    def __init__(self, *args, **kwargs):
+        super(AttrDict, self).__init__(*args, **kwargs)
+        self.__dict__ = self
